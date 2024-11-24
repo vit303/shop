@@ -1,0 +1,34 @@
+{
+    "apartment1": {
+      "title": "квартира",
+      "image": "lib/assets/apartments_images/apartment1.png",
+      "description": "Уютная квартира с одной спальней в центре города.",
+      "price": 30000,
+      "rent": true,
+      "location": "Красный проспект"
+    },
+    "apartment2": {
+      "title": "трешка",
+      "image": "lib/assets/apartments_images/apartment2.png",
+      "description": "Крутая трешка в центре города.",
+      "price": 20000,
+      "rent": false,
+      "location": "Красный проспект"
+    },
+    "apartment3": {
+      "title": "квартира",
+      "image": "lib/assets/apartments_images/apartment3.png",
+      "description": "трешка в новостройке в центре города.",
+      "price": 15000,
+      "rent": true,
+      "location": "Красный проспект"
+    },
+    "apartment4": {
+      "title": "Пентхауз",
+      "image": "lib/assets/apartments_images/apartment4.png",
+      "description": "Пентхауз в центре города.",
+      "price": 40000,
+      "rent": true,
+      "location": "Красный проспект"
+    }
+  }
