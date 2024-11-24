@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop/apartment/apartment.dart';
 import 'package:shop/pages/apartment_detail_page.dart';
+import 'package:shop/pages/application_form_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -66,11 +67,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _addApartment() {
-    // Логика для добавления новой квартиры
-    // Здесь можно открыть новый экран или выполнить другое действие
-    // Например: Navigator.push(context, MaterialPageRoute(builder: (context) => AddApartmentPage()));
-    print("Добавить новую квартиру");
-  }
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => AplicationFormPage()),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
