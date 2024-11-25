@@ -166,10 +166,10 @@ class _HomePageState extends State<HomePage> {
                             height: 300,
                             child: Row(
                               children: [
-                                Expanded(
+                                Container(
                                   child: Image.asset(
                                     apartment.image,
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.contain, 
                                   ),
                                 ),
                                 SizedBox(width: 10),

@@ -1,7 +1,7 @@
 {
     "apartment1": {
       "title": "квартира",
-      "image": "lib/assets/apartments_images/apartment1.png",
+      "image": "lib/assets/apartments_images/apartment1.jpg",
       "description": "Уютная квартира с одной спальней в центре города.",
       "price": 30000,
       "rent": true,
