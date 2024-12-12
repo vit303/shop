@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class AplicationFormPage extends StatefulWidget {
   @override
@@ -7,6 +10,7 @@ class AplicationFormPage extends StatefulWidget {
 
 class _AplicationFormPageState extends State<AplicationFormPage> {
   final _formKey = GlobalKey<FormState>();
+  String _phoneNumber = '';
   String _description = '';
   double _price = 0.0;
   String _location = '';
@@ -20,6 +24,9 @@ class _AplicationFormPageState extends State<AplicationFormPage> {
   bool _hasLoggia = false;
   String _houseDescription = '';
   bool _isRent = false;
+  List<File> _images = [];
+
+  final ImagePicker _picker = ImagePicker();
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
@@ -38,9 +45,19 @@ class _AplicationFormPageState extends State<AplicationFormPage> {
       print('Наличие лоджии: $_hasLoggia');
       print('Описание дома: $_houseDescription');
       print('Аренда: $_isRent');
+      print('Фотографии: ${_images.map((image) => image.path).toList()}');
 
       // Закрываем экран после успешного добавления
       Navigator.pop(context);
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _images.add(File(pickedFile.path));
+      });
     }
   }
 
@@ -50,12 +67,24 @@ class _AplicationFormPageState extends State<AplicationFormPage> {
       appBar: AppBar(
         title: Text('Добавить квартиру'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
             children: [
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Номер телефона'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Пожалуйста, введите номер телефона';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _phoneNumber = value!;
+                },
+              ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Описание'),
                 validator: (value) {
@@ -209,6 +238,38 @@ class _AplicationFormPageState extends State<AplicationFormPage> {
                   });
                 },
               ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _pickImage,
+                child: Text('Добавить фотографию'),
+              ),
+              SizedBox(height: 20),
+              _images.isNotEmpty
+                  ? Wrap(
+                      spacing: 8.0,
+                      children: _images.map((image) {
+                        return Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            Image.file(
+                              image,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.delete, color: Colors.red),
+                              onPressed: () {
+                                setState(() {
+                                  _images.remove(image);
+                                });
+                              },
+                            ),
+                          ],
+                        );
+                      }).toList(),
+                    )
+                  : Container(),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submitForm,
