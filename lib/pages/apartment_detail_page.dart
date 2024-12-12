@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop/apartment/apartment.dart';
+import 'package:shop/pages/ImageGalleryPage.dart';
 
 class ApartmentDetailPage extends StatelessWidget {
   final Apartment apartment;
@@ -20,7 +21,7 @@ class ApartmentDetailPage extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.7, // 70% высоты экрана
               width: double.infinity,
               child: Image.asset(
-                apartment.image,
+                apartment.image[0],
                 fit: BoxFit.contain, // Изменено на BoxFit.contain для отображения изображения целиком
               ),
             ),
@@ -46,6 +47,20 @@ class ApartmentDetailPage extends StatelessWidget {
               child: Text(
                 "Расположение: ${apartment.location}",
                 style: TextStyle(fontSize: 16),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImageGalleryPage(images: apartment.image),
+                    ),
+                  );
+                },
+                child: Text('Посмотреть все изображения'),
               ),
             ),
           ],

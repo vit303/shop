@@ -63,6 +63,7 @@ flutter:
   assets:
     - lib/data_base/apartments.json
     - lib/assets/apartments_images/
+    - lib/assets/apartments_images/apart1/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

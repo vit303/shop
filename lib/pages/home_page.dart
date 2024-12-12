@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 Container(
                                   child: Image.asset(
-                                    apartment.image,
+                                    apartment.image[0],
                                     fit: BoxFit.contain, 
                                   ),
                                 ),

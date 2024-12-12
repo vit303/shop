@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
 class Apartment {
-  final String image;
+  final List<String> image;
   final String description;
   final double price;
   final bool rent;
@@ -21,7 +21,7 @@ class Apartment {
   factory Apartment.fromJson(Map<String, dynamic> json) {
     return Apartment(
       title: json['title'],
-      image: json['image'],
+      image: List<String>.from(json['image']),
       description: json['description'],
       price: (json['price'] is int) ? (json['price'] as int).toDouble() : json['price'] as double,
       rent: json['rent'],
