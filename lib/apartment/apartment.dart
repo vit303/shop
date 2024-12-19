@@ -8,6 +8,15 @@ class Apartment {
   final bool rent;
   final String location;
   final String title;
+  final String area;
+  final int floor;
+  final int roomNumber;
+  final double fullSquare;
+  final double livingSquare;
+  final double kitchenSquare;
+  final bool balcony;
+  final bool loggia;
+  final String phoneNumber;
 
   Apartment({
     required this.title,
@@ -15,7 +24,16 @@ class Apartment {
     required this.description,
     required this.price,
     required this.rent,
-    required this.location
+    required this.location,
+    required this.area,
+    required this.floor,
+    required this.roomNumber,
+    required this.fullSquare,
+    required this.livingSquare,
+    required this.kitchenSquare,
+    required this.balcony,
+    required this.loggia,
+    required this.phoneNumber,
   });
 
   factory Apartment.fromJson(Map<String, dynamic> json) {
@@ -25,7 +43,16 @@ class Apartment {
       description: json['description'],
       price: (json['price'] is int) ? (json['price'] as int).toDouble() : json['price'] as double,
       rent: json['rent'],
-      location: json['location']
+      location: json['location'],
+      area: json['area'],
+      floor: json['floor'],
+      roomNumber: json['roomNumber'],
+      fullSquare: (json['fullSquare'] is int) ? (json['fullSquare'] as int).toDouble() : json['fullSquare'] as double,
+      livingSquare: (json['livingSquare'] is int) ? (json['livingSquare'] as int).toDouble() : json['livingSquare'] as double,
+      kitchenSquare: (json['kitchenSquare'] is int) ? (json['kitchenSquare'] as int).toDouble() : json['kitchenSquare'] as double,
+      balcony: json['balcony'],
+      loggia: json['loggia'],
+      phoneNumber: json['phoneNumber'],
     );
   }
 }

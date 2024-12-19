@@ -1,42 +1,87 @@
 {
-    "apartment1": {
-      "title": "квартира",
-      "image": ["lib/assets/apartments_images/apartment1.jpg"],
-      "description": "Уютная квартира с одной спальней в центре города.",
-      "price": 30000,
-      "rent": true,
-      "location": "Красный проспект"
-    },
-    "apartment2": {
-      "title": "трешка",
-      "image": ["lib/assets/apartments_images/apartment2.png"],
-      "description": "Крутая трешка в центре города.",
-      "price": 20000,
-      "rent": false,
-      "location": "Красный проспект"
-    },
-    "apartment3": {
-      "title": "квартира",
-      "image": ["lib/assets/apartments_images/apartment3.png"],
-      "description": "трешка в новостройке в центре города.",
-      "price": 15000,
-      "rent": true,
-      "location": "Красный проспект"
-    },
-    "apartment4": {
-      "title": "Пентхауз",
-      "image": ["lib/assets/apartments_images/apartment4.png"],
-      "description": "Пентхауз в центре города.",
-      "price": 40000,
-      "rent": true,
-      "location": "Красный проспект"
-    },
-    "apartment5": {
-      "title": "1-комн. квартира",
-      "image": ["lib/assets/apartments_images/apart1/2139006799-1.jpg", "lib/assets/apartments_images/apart1/2139007384-1.jpg",  "lib/assets/apartments_images/apart1/2139007801-1.jpg", "lib/assets/apartments_images/apart1/2139007970-1.jpg", "lib/assets/apartments_images/apart1/2139008841-1.jpg", "lib/assets/apartments_images/apart1/2151495150-1.jpg"],
-      "description": "Продается квартира в ЖК Заельцовский NEW. Дом сдан! Жителям ЖК Заельцовский NEW доступна вся развитая инфраструктура площади Калинина, а также собственная инфраструктура  магазины и семейные заведения, расположенные в коммерческих этажах первого дома жилого комплекса. В шаговой доступности находятся  сетевые супермаркеты, торгово-развлекательные комплексы, школы и ВУЗы, медицинские учреждения, спортивные и развивающие центры для детей и взрослых.  ",
-      "price": 83578,
-      "rent": false,
-      "location": "Новосибирская область, Новосибирск, р-н Заельцовский, ул. Дуси Ковальчук, 248/1"
-    }
+  "apartment1": {
+    "title": "квартира",
+    "image": ["lib/assets/apartments_images/apartment1.jpg"],
+    "description": "Уютная квартира с одной спальней в центре города.",
+    "price": 30000,
+    "rent": true,
+    "location": "Красный проспект",
+    "area": "45 м²",
+    "floor": 3,
+    "roomNumber": 1,
+    "fullSquare": 45.0,
+    "livingSquare": 30.0,
+    "kitchenSquare": 15.0,
+    "balcony": true,
+    "loggia": false,
+    "phoneNumber": "123-456-7890"
+  },
+  "apartment2": {
+    "title": "трешка",
+    "image": ["lib/assets/apartments_images/apartment2.png"],
+    "description": "Крутая трешка в центре города.",
+    "price": 20000,
+    "rent": false,
+    "location": "Красный проспект",
+    "area": "75 м²",
+    "floor": 5,
+    "roomNumber": 3,
+    "fullSquare": 75.0,
+    "livingSquare": 50.0,
+    "kitchenSquare": 25.0,
+    "balcony": false,
+    "loggia": true,
+    "phoneNumber": "234-567-8901"
+  },
+  "apartment3": {
+    "title": "квартира",
+    "image": ["lib/assets/apartments_images/apartment3.png"],
+    "description": "трешка в новостройке в центре города.",
+    "price": 15000,
+    "rent": true,
+    "location": "Красный проспект",
+    "area": "60 м²",
+    "floor": 2,
+    "roomNumber": 2,
+    "fullSquare": 60.0,
+    "livingSquare": 40.0,
+    "kitchenSquare": 20.0,
+    "balcony": true,
+    "loggia": false,
+    "phoneNumber": "345-678-9012"
+  },
+  "apartment4": {
+    "title": "Пентхауз",
+    "image": ["lib/assets/apartments_images/apartment4.png"],
+    "description": "Пентхауз в центре города.",
+    "price": 40000,
+    "rent": true,
+    "location": "Красный проспект",
+    "area": "120 м²",
+    "floor": 10,
+    "roomNumber": 4,
+    "fullSquare": 120.0,
+    "livingSquare": 80.0,
+    "kitchenSquare": 40.0,
+    "balcony": true,
+    "loggia": true,
+    "phoneNumber": "456-789-0123"
+  },
+  "apartment5": {
+    "title": "1-комн. квартира",
+    "image": ["lib/assets/apartments_images/apart1/2139006799-1.jpg", "lib/assets/apartments_images/apart1/2139007384-1.jpg", "lib/assets/apartments_images/apart1/2139007801-1.jpg", "lib/assets/apartments_images/apart1/2139007970-1.jpg", "lib/assets/apartments_images/apart1/2139008841-1.jpg", "lib/assets/apartments_images/apart1/2151495150-1.jpg"],
+    "description": "Продается квартира в ЖК Заельцовский NEW. Дом сдан! Жителям ЖК Заельцовский NEW доступна вся развитая инфраструктура площади Калинина, а также собственная инфраструктура  магазины и семейные заведения, расположенные в коммерческих этажах первого дома жилого комплекса. В шаговой доступности находятся  сетевые супермаркеты, торгово-развлекательные комплексы, школы и ВУЗы, медицинские учреждения, спортивные и развивающие центры для детей и взрослых.",
+    "price": 83578,
+    "rent": false,
+    "location": "Новосибирская область, Новосибирск, р-н Заельцовский, ул. Дуси Ковальчук, 248/1",
+    "area": "50 м²",
+    "floor": 1,
+    "roomNumber": 1,
+    "fullSquare": 50.0,
+    "livingSquare": 30.0,
+    "kitchenSquare": 20.0,
+    "balcony": false,
+    "loggia": false,
+    "phoneNumber": "567-890-1234"
   }
+}
