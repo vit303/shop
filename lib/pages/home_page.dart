@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop/apartment/apartment.dart';
-import 'package:shop/pages/apartment_detail_page.dart';
-import 'package:shop/pages/application_form_page.dart';
+import 'package:shop/pages_components/home_page_comp.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,90 +10,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<List<Apartment>> futureApartments;
-
-  // Переменные для фильтров
-  String selectedSort = 'По умолчанию';
-  String selectedType = 'Все';
+  late HomePageComp homePageComp;
 
   @override
   void initState() {
     super.initState();
-    futureApartments = loadApartmentsFromJson();
+    homePageComp = HomePageComp();
   }
-
-  void _onApartmentTap(Apartment apartment) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ApartmentDetailPage(apartment: apartment),
-      ),
-    );
-  }
-
-  // Метод для фильтрации и сортировки квартир
-  Future<List<Apartment>> _filterAndSortApartments(List<Apartment> apartments) async {
-    List<Apartment> filteredApartments;
-
-    // Фильтрация по типу
-    if (selectedType == 'Аренда') {
-      filteredApartments = apartments.where((apartment) => apartment.rent).toList();
-    } else if (selectedType == 'Покупка') {
-      filteredApartments = apartments.where((apartment) => !apartment.rent).toList();
-    } else {
-      // Если выбран "Все", просто копируем оригинальный список
-      filteredApartments = List.from(apartments);
-    }
-
-    // Если выбран "По умолчанию", возвращаем отфильтрованный список в оригинальном порядке
-    if (selectedSort == 'По умолчанию') {
-      return filteredApartments; // Возвращаем отфильтрованный список
-    }
-
-    // Сортировка по цене
-    if (selectedSort == 'От дешевого к дорогому') {
-      filteredApartments.sort((a, b) => a.price.toDouble().compareTo(b.price.toDouble()));
-    } else if (selectedSort == 'От дорогого к дешевому') {
-      filteredApartments.sort((a, b) => b.price.toDouble().compareTo(a.price.toDouble()));
-    }
-
-    return filteredApartments;
-  }
-
-  void _goHome() {
-    // Логика для перехода на главную страницу
-    Navigator.popUntil(context, (route) => route.isFirst);
-  }
-
-  void _addApartment() {
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => AplicationFormPage()),
-  );
-}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(120), // Увеличьте высоту AppBar
+        preferredSize: Size.fromHeight(120), 
         child: AppBar(
           title: Text('Квартиры'),
           centerTitle: true,
           backgroundColor: const Color.fromARGB(255, 143, 145, 233),
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(40), // Высота для фильтров
+            preferredSize: Size.fromHeight(40),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   DropdownButton<String>(
-                    value: selectedSort,
+                    value: homePageComp.selectedSort,
                     icon: const Icon(Icons.sort),
                     onChanged: (String? newValue) {
                       setState(() {
-                        selectedSort = newValue!;
+                        homePageComp.selectedSort = newValue!;
                       });
                     },
                     items: <String>[
@@ -109,11 +54,11 @@ class _HomePageState extends State<HomePage> {
                     }).toList(),
                   ),
                   DropdownButton<String>(
-                    value: selectedType,
+                    value: homePageComp.selectedType,
                     icon: const Icon(Icons.filter_list),
                     onChanged: (String? newValue) {
                       setState(() {
-                        selectedType = newValue!;
+                        homePageComp.selectedType = newValue!;
                       });
                     },
                     items: <String>[
@@ -134,7 +79,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: FutureBuilder<List<Apartment>>(
-        future: futureApartments,
+        future: homePageComp.futureApartments,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -145,7 +90,7 @@ class _HomePageState extends State<HomePage> {
           } else {
             final apartments = snapshot.data!;
             return FutureBuilder<List<Apartment>>(
-              future: _filterAndSortApartments(apartments),
+              future: homePageComp.filterAndSortApartments(apartments),
               builder: (context, filteredSnapshot) {
                 if (filteredSnapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -160,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       final apartment = filteredApartments[index];
                       return GestureDetector(
-                        onTap: () => _onApartmentTap(apartment),
+                        onTap: () => homePageComp.onApartmentTap(context, apartment),
                         child: Card(
                           child: Container(
                             height: 300,
@@ -180,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       Text(apartment.description),
                                       Text(
-                                        '\$${apartment.price.toStringAsFixed(2)} - ${apartment.rent ? "Аренда" : "Покупка"} \nРасположение: ${apartment.location}',
+                                        '\${apartment.price.toStringAsFixed(2)} - ${apartment.rent ? "Аренда" : "Покупка"} \nРасположение: ${apartment.location}',
                                       ),
                                     ],
                                   ),
@@ -204,12 +149,12 @@ class _HomePageState extends State<HomePage> {
           children: [
             IconButton(
               icon: Icon(Icons.home),
-              onPressed: _goHome,
+              onPressed: () => homePageComp.goHome(context),
               tooltip: "",
             ),
             IconButton(
               icon: Icon(Icons.add),
-              onPressed: _addApartment,
+              onPressed: () => homePageComp.addApartment(context),
               tooltip: 'Добавить квартиру',
             ),
           ],
