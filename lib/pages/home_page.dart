@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop/apartment/apartment.dart';
+import 'package:shop/pages/admin_form.dart';
 import 'package:shop/pages_components/home_page_comp.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,13 +12,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late HomePageComp homePageComp;
+  bool isAdmin = false;
 
   @override
   void initState() {
     super.initState();
     homePageComp = HomePageComp();
   }
-
+  void _handleAdminChecked(bool isValid) {
+    setState(() {
+      isAdmin = isValid;  // Обновляем состояние isAdmin
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       Text(apartment.description),
                                       Text(
-                                        '\${apartment.price.toStringAsFixed(2)} - ${apartment.rent ? "Аренда" : "Покупка"} \nРасположение: ${apartment.location}',
+                                        '${apartment.price.toStringAsFixed(2)} - ${apartment.rent ? "Аренда" : "Покупка"} \nРасположение: ${apartment.location}',
                                       ),
                                     ],
                                   ),
@@ -157,6 +163,24 @@ class _HomePageState extends State<HomePage> {
               onPressed: () => homePageComp.addApartment(context),
               tooltip: 'Добавить квартиру',
             ),
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.person),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AdminForm(onAdminChecked: _handleAdminChecked),
+                      ),
+                    );
+                  },
+                  tooltip: 'Admin',
+                ),
+                Text('admin'),
+              ],
+            ),
+
           ],
         ),
       ),

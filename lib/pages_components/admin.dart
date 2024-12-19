@@ -11,5 +11,12 @@ class Admin {
     required this.code
   });
 
+  factory Admin.fromJson(Map<String, dynamic> json) {
+    return Admin(
+      name: json['name'],
+      id: json['id'],
+      code: json['code'],
+    );
+  }
 }
 
