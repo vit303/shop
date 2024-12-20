@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop/apartment/apartment.dart';
 import 'package:shop/pages/admin_form.dart';
+import 'package:shop/pages/waiting_apprive_page.dart';
 import 'package:shop/pages_components/home_page_comp.dart';
 
 class HomePage extends StatefulWidget {
@@ -160,7 +161,19 @@ class _HomePageState extends State<HomePage> {
             ),
             IconButton(
               icon: Icon(Icons.add),
-              onPressed: () => homePageComp.addApartment(context),
+              onPressed: (){
+                if (isAdmin == true){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WaitingApprovePage(),
+                      ),
+                  );
+                }
+                else{
+                  homePageComp.addApartment(context);
+                }
+              },
               tooltip: 'Добавить квартиру',
             ),
             Row(

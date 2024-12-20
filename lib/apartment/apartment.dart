@@ -55,10 +55,30 @@ class Apartment {
       phoneNumber: json['phoneNumber'],
     );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      "title": title,
+      "image": image,
+      "description": description,
+      "price": price,
+      "rent": rent,
+      "location": location,
+      "area": area,
+      "floor": floor,
+      "roomNumber": roomNumber,
+      "fullSquare": fullSquare,
+      "livingSquare": livingSquare,
+      "kitchenSquare": kitchenSquare,
+      "balcony": balcony,
+      "loggia": loggia,
+      "phoneNumber": phoneNumber,
+    };
+  }
 }
 
-Future<List<Apartment>> loadApartmentsFromJson() async {
-  final jsonString = await rootBundle.loadString('lib/data_base/apartments.json');
+
+Future<List<Apartment>> loadApartmentsFromJson(String link) async {
+  final jsonString = await rootBundle.loadString(link);
   final jsonData = jsonDecode(jsonString) as Map<String, dynamic>;
 
   final apartments = jsonData.values.map((apartmentJson) {

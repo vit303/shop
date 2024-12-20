@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shop/apartment/apartment.dart';
 import 'dart:io';
 
 import 'package:shop/pages_components/form_page_comp.dart';
@@ -26,6 +27,7 @@ class _ApplicationFormPageState extends State<AplicationFormPage> {
   bool _hasLoggia = false;
   String _houseDescription = '';
   bool _isRent = false;
+  String _title = '';
   List<File> _images = [];
 
   String _clientLastName = '';
@@ -38,12 +40,34 @@ class _ApplicationFormPageState extends State<AplicationFormPage> {
   final ApartmentService _apartmentService = ApartmentService();
 
   void _submitApartmentForm() {
-    if (_apartmentFormKey.currentState!.validate()) {
-      _apartmentFormKey.currentState!.save();
-      _saveApartmentData();
-      Navigator.pop(context);
-    }
+  if (_apartmentFormKey.currentState!.validate()) {
+    _apartmentFormKey.currentState!.save();
+
+    // Создайте экземпляр Apartment
+    Apartment apartment = Apartment(
+      title: _title,
+      image: _images.map((image) => image.path).toList(), // Преобразуйте список файлов в список путей
+      description: _description,
+      price: _price,
+      rent: _isRent,
+      location: _location,
+      area: _district, // Если нужно, замените на нужное поле
+      floor: _floor,
+      roomNumber: _rooms,
+      fullSquare: _totalArea,
+      livingSquare: _livingArea,
+      kitchenSquare: _kitchenArea,
+      balcony: _hasBalcony,
+      loggia: _hasLoggia,
+      phoneNumber: _phoneNumber,
+    );
+
+    // Сохраните данные в JSON
+    _apartmentService.saveDataToJson(apartment.toJson(), 'lib/data_base/aplications.json');
+
+    Navigator.pop(context);
   }
+}
 
   Future<void> _pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -56,6 +80,7 @@ class _ApplicationFormPageState extends State<AplicationFormPage> {
 
   Future<void> _saveApartmentData() async {
     Map<String, dynamic> apartmentData = {
+      "title": _title,
       "phoneNumber": _phoneNumber,
       "description": _description,
       "price": _price,
@@ -125,6 +150,18 @@ class _ApplicationFormPageState extends State<AplicationFormPage> {
                       },
                       onSaved: (value) {
                         _phoneNumber = value!;
+                      },
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Заголовок'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Пожалуйста, введите заголовок';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _title = value!;
                       },
                     ),
                     TextFormField(

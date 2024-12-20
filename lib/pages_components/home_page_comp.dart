@@ -11,7 +11,7 @@ class HomePageComp {
   String selectedType = 'Все';
 
   HomePageComp() {
-    futureApartments = loadApartmentsFromJson();
+    futureApartments = loadApartmentsFromJson('lib/data_base/apartments.json');
   }
 
   void onApartmentTap(BuildContext context, Apartment apartment) {
