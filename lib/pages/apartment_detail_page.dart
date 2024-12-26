@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop/apartment/apartment.dart';
 import 'package:shop/pages/ImageGalleryPage.dart';
+import 'package:shop/pages/customer_page.dart';
 
 class ApartmentDetailPage extends StatelessWidget {
   final Apartment apartment;
@@ -61,6 +62,21 @@ class ApartmentDetailPage extends StatelessWidget {
                   );
                 },
                 child: Text('Посмотреть все изображения'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CustomerPage(apartment: apartment),
+                    ),
+                  );
+                },
+                child: Text('Оставить заявку на покупку'),
               ),
             ),
           ],

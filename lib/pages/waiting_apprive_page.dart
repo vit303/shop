@@ -1,8 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shop/apartment/apartment.dart';
+import 'package:shop/pages_components/apartment_service.dart';
+
 
 class WaitingApprovePage extends StatefulWidget {
   const WaitingApprovePage({super.key});
@@ -13,52 +12,24 @@ class WaitingApprovePage extends StatefulWidget {
 
 class _WaitingApprovePageState extends State<WaitingApprovePage> {
   late Future<List<Apartment>> futureApartments;
-
-  Future<List<Apartment>> loadApplicationsFromJson(String link) async {
-    final jsonString = await rootBundle.loadString(link);
-    final List<dynamic> jsonData = jsonDecode(jsonString);
-
-    final apartments = jsonData.map((apartmentJson) {
-      return Apartment.fromJson(apartmentJson as Map<String, dynamic>);
-    }).toList();
-
-    return apartments;
-  }
+  final ApartmentService apartmentService = ApartmentService(); // Создаем экземпляр ApartmentService
 
   @override
   void initState() {
     super.initState();
-    futureApartments = loadApplicationsFromJson("lib/data_base/aplications.json");
+    futureApartments = apartmentService.loadApplicationsFromJson("lib/data_base/aplications.json");
   }
 
   Future<void> _addApartment(Apartment apartment) async {
     // Путь к файлу
     final filePath = 'lib/data_base/apartments.json';
-
-    // Читаем существующий JSON-файл
-    final file = File(filePath);
-    List<dynamic> jsonData;
-
+    
     try {
-      if (await file.exists()) {
-        final jsonString = await file.readAsString();
-        jsonData = jsonDecode(jsonString);
-      } else {
-        jsonData = [];
-      }
-
-      // Добавляем новую квартиру в список
-      jsonData.add(apartment.toJson());
-
-      // Сохраняем обновленный список обратно в файл
-      await file.writeAsString(jsonEncode(jsonData));
-
-      print('Apartment added: ${apartment.description}');
+      await apartmentService.addApartment(apartment, filePath);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Квартира добавлена: ${apartment.title}')),
       );
     } catch (e) {
-      print('Error adding apartment: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Ошибка при добавлении квартиры: $e')),
       );
